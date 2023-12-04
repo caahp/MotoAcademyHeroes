@@ -5,5 +5,4 @@ export interface Hero {
     img: string;
 }
 
-//aa
 
