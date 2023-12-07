@@ -1,12 +1,11 @@
 <div *ngIf="hero">
   <h2>{{hero.name | uppercase}} Details</h2>
+  <div><img class = "circle" src="{{hero.img}}"></div>
   <div><span>Id: </span>{{hero.id}}</div>
   <div>
-    <label for="hero-name">Hero name: </label>
+    <label for="hero-name">Name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
   </div>
-  <div><span>Power: </span>{{hero.power}}</div>
-  <div><img class = "img" src="{{hero.img}}" width="200" height="160"></div>
-  <button type="button" (click)="save()">save</button>
-  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">Save</button>
+  <button type="button" (click)="goBack()">Go back</button>
 </div>

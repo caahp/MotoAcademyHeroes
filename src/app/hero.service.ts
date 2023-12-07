@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HEROES } from './heroes/mocks/Hero.mocks';
 import { Hero } from './Hero';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -50,8 +50,23 @@ export class HeroService {
   }
 
   updateHero(hero: Hero): Observable<Hero> {
-    return this.http.put<Hero>(this.heroesUrl,hero).pipe(
+    return this.http.put<Hero>(this.heroesUrl,hero, this.httpOptions).pipe(
       catchError(this.handleError<Hero>('updateHero'))
     );
   }
-}
+
+  addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl,hero, this.httpOptions).pipe(
+      catchError(this.handleError<Hero>('addHero'))
+    );
+  }
+
+  deleteHero(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(url, this.httpOptions).pipe(
+      tap(_=> this.log(`deleted hero id=${id}`)),
+      catchError(this.handleError<Hero>('deleteHero'))
+    )};
+  
+  }
